@@ -8,7 +8,10 @@ export class User{
   @Column({unique: true,nullable: false})
   username: string
 
-  @Column({type: 'text',nullable: false})
+  @Column({nullable: false})
+  password?: string
+
+  @Column({type: 'text',nullable: true})
   bio: string
 
   @Column({nullable:true})
