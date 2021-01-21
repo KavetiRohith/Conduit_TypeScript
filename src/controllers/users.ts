@@ -15,18 +15,23 @@ export async function createUser(data: UserSignupData) {
   if(!data.email) throw new Error("email is blank")
   if(!data.password) throw new Error("password is blank")
 
+  const repo = await getRepository(User)
+
+  const existing = repo.findOne(data.email)
+
+  if(existing) throw new Error("username is blank")
+
   try{
-    const user = new User
-    user.username = data.username
-    user.email = data.email
-    user.password = await hashPassword(data.password)
 
-    const result = await getRepository(User).save(user)
+    const user = await repo.save(new User(
+      data.email,
+      data.username,
+      await hashPassword(data.password)  
+    ))
     console.log(sanitizeFields(user))
-
     return user
+
   } catch (e) {
-    console.error(e)
     throw e;
   }
 }
