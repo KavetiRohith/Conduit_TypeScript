@@ -25,7 +25,7 @@ async function start(){
     synchronize:  true,
     logging: true,
     logger: 'advanced-console',
-    dropSchema: true
+    dropSchema: true // Not for Production
   })
 
   app.listen(3010,()=>{
