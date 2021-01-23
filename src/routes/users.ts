@@ -1,5 +1,5 @@
 import {Router} from 'express'
-import { createUser } from '../controllers/users'
+import { createUser, loginUser } from '../controllers/users'
 
 const router = Router()
 
@@ -7,6 +7,16 @@ const router = Router()
 // POST /users/login - login Path
 router.post('/login',async (req,res)=>{
   
+  try{
+    const user = await loginUser(req.body.user)
+
+    return res.status(200).json({user})
+  } catch(e) {
+    console.error(e)
+    return res.status(422).json({
+      errors: {body: ['login failed',e.message]}
+    })
+  }
 
 })
 
@@ -15,7 +25,7 @@ router.post('/',async (req,res)=>{
   try {
     const user = await createUser(req.body.user)
 
-    return res.send(user)
+    return res.status(201).json({user})
   } catch(e){
     console.error(e)
     return res.status(422).json({

@@ -12,10 +12,12 @@ export class User{
   password?: string
 
   @Column({type: 'text',nullable: true})
-  bio: string
+  bio?: string
 
   @Column({nullable:true})
-  image: string
+  image?: string
+
+  token?: string
 
   constructor(email: string, username: string, password: string) {
     this.email = email;
