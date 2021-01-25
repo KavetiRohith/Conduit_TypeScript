@@ -64,3 +64,14 @@ export async function loginUser(data: UserLoginData): Promise<User> {
   user.token = await sign(user)
   return sanitizeFields(user)
 }
+
+export async function getUserBYEmail(email: string): Promise<User>{
+
+  const repo = getRepository(User)
+
+  const user = await repo.findOne(email)
+
+  if(!user) throw new Error('No user exists with given email id')
+
+  return sanitizeFields(user)
+}
