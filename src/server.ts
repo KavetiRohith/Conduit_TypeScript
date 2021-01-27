@@ -13,9 +13,12 @@ app.get('/',(req,res)=>{
 })
 
 app.use(express.json())
+app.use(express.urlencoded({
+  extended: true
+}))
 app.use('/api/users',usersRouter)
 app.use('/api/user',userRouter)
-app.use('/api/articles',articlesRouter)
+app.use('/api/articles/',articlesRouter)
 
 async function start(){
   await createConnection({

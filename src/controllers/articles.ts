@@ -11,6 +11,12 @@ interface ArticleData{
   tagList: string[]
 }
 
+interface ArticleUpdateData{
+  title?: string,
+  description?: string,
+  body?: string
+}
+
 export async function createArticle(data:ArticleData,email: string): Promise<Article>{
 
   // data Validation
@@ -42,22 +48,73 @@ export async function createArticle(data:ArticleData,email: string): Promise<Art
   
 }
 
-// export async function updateArticle( slug: string, data:Partial<ArticleData>): Promise<Article>{
-//   return new Article()  
-// }
+export async function updateArticle( slug: string, data: ArticleUpdateData,user: User): Promise<Article>{
+  const repo = getRepository(Article)
+  
+  const article = await repo.findOne(slug,{relations:['author']})
 
-// export async function deleteArticle(slug: string):Promise<boolean>{
-//   return true
-// }
+  if(!article) throw new Error('Article not found')
 
-// export async function getAllArticle(): Promise<Article[]>{
-//   return [new Article()]
-// }
+  try {
+    if(article.author.email!=user.email) throw new Error('Only the author can edit the article')
+
+    if(data.title){
+      await repo.remove(article) //TODO optimize this necessary only when title is updated
+      article.title = data.title
+      article.slug = slugify(data.title)
+    }
+    if(data.body) article.body = data.body
+    if(data.description) article.description = data.description
+     
+    
+    const updatedArticle = await repo.save(article)
+
+    return updatedArticle
+  } catch(e){
+    console.log(e);
+    throw e
+  }
+}
+
+export async function deleteArticle(slug: string,email:string):Promise<Article>{
+  const repo = getRepository(Article)
+
+  const article = await repo.findOne(slug,{relations:['author']})
+
+  if(!article) throw new Error('Article not found')
+
+  try{
+    if(article.author.email!=email) throw new Error('Only the author can edit the article')
+
+    const deletedArticle = await repo.remove(article)
+  
+    return deletedArticle
+  } catch (e) {
+    console.log(e);
+    throw e;
+  }
+}
+
+export async function getAllArticles(): Promise<Article[]>{
+  const repo = getRepository(Article)
+
+  const articles = await repo.find({relations:['author']})
+
+  if(!articles) throw new Error('Articles not found')
+
+  return articles
+}
 
 // export async function getFeedArticles(email:string): Promise<Article[]>{
 //   return [new Article()]
 // }
 
-// export async function getArticleBySlug(slug:string): Promise<Article>{
-//   return new Article() 
-// }
+export async function getArticleBySlug(slug:string): Promise<Article>{
+  const repo = getRepository(Article)
+
+  const article = await repo.findOne(slug,{relations:['author']})
+
+  if(!article) throw new Error('Articles not found')
+
+  return article
+}
