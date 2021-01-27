@@ -15,6 +15,13 @@ interface UserLoginData{
   password: string
 }
 
+interface UserUpdateData{
+  username?: string,
+  password?: string,
+  bio?: string,
+  image?: string
+}
+
 export async function createUser(data: UserSignupData) {
   // check for data validity
   if(!data.username) throw new Error("username is blank")
@@ -74,4 +81,22 @@ export async function getUserBYEmail(email: string): Promise<User>{
   if(!user) throw new Error('No user exists with given email id')
 
   return sanitizeFields(user)
+}
+
+export async function updateUserDetails(data:UserUpdateData,email:string): Promise<User>{
+
+  const repo = getRepository(User)
+
+  const user = await repo.findOne(email)
+
+  if(!user) throw new Error('No user exists with given email id')
+
+  if(data.bio) user.bio = data.bio
+  if(data.username) user.username = data.username
+  if(data.password) user.password = data.password
+  if(data.image) user.image = data.image
+
+  const updatedUser = await repo.save(user)
+
+  return sanitizeFields(updatedUser)
 }

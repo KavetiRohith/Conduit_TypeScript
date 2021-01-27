@@ -28,7 +28,7 @@ export class Article{
   title: string
 
   @Column({length: 100, nullable: true})
-  description: string
+  description?: string
 
   @Column({type: 'text'})
   body: string
@@ -42,4 +42,12 @@ export class Article{
   @ManyToOne(()=>User)
   @JoinColumn()
   author: User
+
+  constructor(slug: string,title: string,description: string,body: string,author: User){
+    this.slug = slug,
+    this.title = title,
+    this.description = description,
+    this.body = body
+    this.author = author
+  }
 }

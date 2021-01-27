@@ -4,6 +4,7 @@ import { userRouter } from './routes/user'
 import { usersRouter } from './routes/users'
 import { Article } from './entities/Article'
 import { User } from './entities/User'
+import { articlesRouter } from './routes/articles'
 
 const app = express()
 
@@ -14,6 +15,7 @@ app.get('/',(req,res)=>{
 app.use(express.json())
 app.use('/api/users',usersRouter)
 app.use('/api/user',userRouter)
+app.use('/api/articles',articlesRouter)
 
 async function start(){
   await createConnection({
