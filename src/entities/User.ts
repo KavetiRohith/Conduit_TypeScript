@@ -3,7 +3,7 @@ import {Column, Entity, PrimaryColumn} from "typeorm"
 @Entity('users')
 export class User{
   @PrimaryColumn()
-  email: string
+  email?: string
 
   @Column({unique: true,nullable: false})
   username: string

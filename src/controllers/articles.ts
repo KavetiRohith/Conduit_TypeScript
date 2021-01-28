@@ -1,7 +1,7 @@
 import { getRepository } from "typeorm";
 import { Article } from "../entities/Article";
 import { User } from "../entities/User";
-import { sanitizeFields } from "../utils/sanitize";
+import { sanitizeArticleFields, sanitizeFields } from "../utils/sanitize";
 import { slugify } from "../utils/stringUtils";
 
 interface ArticleData{
@@ -69,7 +69,7 @@ export async function updateArticle( slug: string, data: ArticleUpdateData,user:
     
     const updatedArticle = await repo.save(article)
 
-    return updatedArticle
+    return sanitizeArticleFields(updatedArticle)
   } catch(e){
     console.log(e);
     throw e
@@ -88,7 +88,7 @@ export async function deleteArticle(slug: string,email:string):Promise<Article>{
 
     const deletedArticle = await repo.remove(article)
   
-    return deletedArticle
+    return sanitizeArticleFields(deletedArticle)
   } catch (e) {
     console.log(e);
     throw e;
@@ -101,6 +101,10 @@ export async function getAllArticles(): Promise<Article[]>{
   const articles = await repo.find({relations:['author']})
 
   if(!articles) throw new Error('Articles not found')
+
+  articles.forEach(article=>{
+    sanitizeArticleFields(article)
+  })
 
   return articles
 }
@@ -116,5 +120,5 @@ export async function getArticleBySlug(slug:string): Promise<Article>{
 
   if(!article) throw new Error('Articles not found')
 
-  return article
+  return sanitizeArticleFields(article)
 }
