@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { createArticle, deleteArticle, getAllArticles, getArticleBySlug, updateArticle } from "../controllers/articles";
+import { createComment, deleteComment, getComments } from "../controllers/comment";
 import { authByToken } from "../middleware/auth";
 
 
@@ -63,12 +64,46 @@ router.patch('/:slug',authByToken,async (req,res) => {
 //DELETE /api/articles:slug
 router.delete('/:slug',authByToken,async (req,res) => {
   try{
-    console.log(req.params.slug)
     const article = await deleteArticle(req.params.slug,(req as any).user.email)
     return res.status(200).json({article})
   } catch(e){
     return res.status(400).json({
       errors: {body: ['Could not delete article',e.message]}
+    })
+  }
+})
+
+router.post('/:slug/comments',authByToken, async (req,res) => {
+  try{
+    const comment = await createComment(req.body.comment,req.params.slug,(req as any).user.email)
+    return res.status(200).json({comment})
+  } catch (e) {
+    return res.status(400).json({
+      errors: {body: ['Could not create comment',e.message]}
+    })
+  }
+})
+
+router.get('/:slug/comments',async (req,res) => {
+
+  try {
+    const comments = await getComments(req.params.slug)
+    return res.status(200).send({comments})
+  } catch (e) {
+    return res.status(400).json({
+      errors: {body: ['Could not get comments',e.message]}
+    })
+  }
+})
+
+router.delete('/:slug/comments/:id',authByToken, async (req,res) => {
+
+  try {
+    const comment = await deleteComment(req.params.slug,req.params.id,(req as any).user.email)
+    return res.status(200).send({comment})
+  } catch (e) {
+    return res.status(400).json({
+      errors: {body: ['Could not delete comment',e.message]}
     })
   }
 })

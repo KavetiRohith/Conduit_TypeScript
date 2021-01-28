@@ -5,6 +5,7 @@ import { usersRouter } from './routes/users'
 import { Article } from './entities/Article'
 import { User } from './entities/User'
 import { articlesRouter } from './routes/articles'
+import { Comment } from './entities/Comments'
 
 const app = express()
 
@@ -26,7 +27,7 @@ async function start(){
     username: 'conduit',
     password: 'conduit',
     database: 'conduit',
-    entities: [Article,User],
+    entities: [Article,User,Comment],
     synchronize:  true,
     logging: true,
     logger: 'advanced-console',

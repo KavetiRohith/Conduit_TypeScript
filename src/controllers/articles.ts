@@ -37,10 +37,10 @@ export async function createArticle(data:ArticleData,email: string): Promise<Art
       data.title,
       data.description,
       data.body,
-      sanitizeFields(user)
+      user
     ))
 
-    return article
+    return sanitizeArticleFields(article)
 
   } catch(e) {
     throw e
