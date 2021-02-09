@@ -1,0 +1,326 @@
+{
+	"info": {
+		"_postman_id": "25afff39-ae9d-471b-94fc-f79d3aab4f45",
+		"name": "conduit_typescript",
+		"description": "# Postman collection for my medium blog api clone",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:3010/api/users",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"user\":{\n    \"username\": \"Jacob\",\n    \"email\": \"jake@jake.jake\",\n    \"password\": \"jakejake\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3010/api/users",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"api",
+						"users"
+					]
+				},
+				"description": "user signup"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3010/api/users/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"user\":{\n    \"email\": \"jake@jake.jake\",\n    \"password\": \"jakejake\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3010/api/users/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				},
+				"description": "user signin"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3010/api/user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3010/api/user",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"api",
+						"user"
+					]
+				},
+				"description": "get current user"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3010/api/articles",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphY29iIiwiZW1haWwiOiJqYWtlQGpha2UuamFrZSIsImlhdCI6MTYxMTk5MTIzMH0.D2fd6sYpn-vouFX8lcIrlECI20yonmAgl3FMlkFTYuE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"article\": {\n    \"title\": \"How to train your dog\",\n    \"description\": \"Ever wonder how?\",\n    \"body\": \"You have to believe\",\n    \"tagList\": [\"reactjs\", \"angularjs\", \"dragons\"]\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3010/api/articles",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"api",
+						"articles"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				},
+				"description": "create a new article"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3010/api/articles/how-to-train-your-dragon",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphY29iMSIsImVtYWlsIjoiamFrZTFAamFrZS5qYWtlIiwiaWF0IjoxNjExODE2Nzk4fQ._LG1UakLPibWqkpmQisaPm36CxvOCtemQMQWV51lZJQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"article\": {\n    \"title\": \"Did you train your dragon??\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3010/api/articles/how-to-train-your-dragon",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"api",
+						"articles",
+						"how-to-train-your-dragon"
+					]
+				},
+				"description": "update article"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3010/api/articles/did-you-train-your-dragon--",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphY29iMSIsImVtYWlsIjoiamFrZTFAamFrZS5qYWtlIiwiaWF0IjoxNjExODE2Nzk4fQ._LG1UakLPibWqkpmQisaPm36CxvOCtemQMQWV51lZJQ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3010/api/articles/did-you-train-your-dragon--",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"api",
+						"articles",
+						"did-you-train-your-dragon--"
+					]
+				},
+				"description": "delete article"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3010/api/articles/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3010/api/articles/",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"api",
+						"articles",
+						""
+					]
+				},
+				"description": "get an array of articles"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3010/api/articles/how-to-train-your-dragon--",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3010/api/articles/how-to-train-your-dragon--",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"api",
+						"articles",
+						"how-to-train-your-dragon--"
+					]
+				},
+				"description": "get an article with its slug"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3010/api/articles/how-to-train-your-dog/comments/",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphY29iIiwiZW1haWwiOiJqYWtlQGpha2UuamFrZSIsImlhdCI6MTYxMTk5MTIzMH0.D2fd6sYpn-vouFX8lcIrlECI20yonmAgl3FMlkFTYuE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"comment\": {\n    \"body\": \"Another Comment 2\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3010/api/articles/how-to-train-your-dog/comments/",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"api",
+						"articles",
+						"how-to-train-your-dog",
+						"comments",
+						""
+					]
+				},
+				"description": "post a new comment"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3010/api/articles/how-to-train-your-dog/comments/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3010/api/articles/how-to-train-your-dog/comments/",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"api",
+						"articles",
+						"how-to-train-your-dog",
+						"comments",
+						""
+					]
+				},
+				"description": "get comments for a specific article"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3010/api/articles/how-to-train-your-dog/comments/1",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphY29iIiwiZW1haWwiOiJqYWtlQGpha2UuamFrZSIsImlhdCI6MTYxMTk5MTIzMH0.D2fd6sYpn-vouFX8lcIrlECI20yonmAgl3FMlkFTYuE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3010/api/articles/how-to-train-your-dog/comments/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"api",
+						"articles",
+						"how-to-train-your-dog",
+						"comments",
+						"1"
+					]
+				},
+				"description": "delete a comment"
+			},
+			"response": []
+		}
+	]
+}
